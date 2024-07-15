@@ -7,6 +7,11 @@ The paper contributes a bias-variance-covariance decomposition of kernel scores 
 We perform various evaluations of generalization performance and uncertainty measures in image, audio, and language settings.
 Specificaly, we discover that kernel entropy outperforms other uncertainty baselines for question answering tasks performed by large language models.
 
+**Upper image:** Kernel entropy is used to compute the similarity of text embeddings.
+**Lower image:** It outperforms other baselines for uncertainty estimation (c.f. paper for more results).
+
+![Sketch of how kernel entropy is used for large language models](https://github.com/MLO-lab/BVCD_generative_models/blob/main/Screenshot%202024-07-15%20at%2017.34.49.png?raw=true)
+
 ## To use it in your project
 
 To use our estimators, you can copy the file `metrics.py` in your repo.
