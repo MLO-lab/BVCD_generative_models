@@ -18,7 +18,7 @@ To use our estimators, you can copy the file `metrics.py` in your repo.
 It only requires `sklearn` and `numpy` as dependencies and should work for any recent package version.
 The kernel entropy is computed via the function `kernel_noise` and the expected kernel score via `kernel_error`.
 
-```
+```python
 import numpy as np
 
 from metrics import dist_cov, dist_var, kernel_noise, dist_corr, kernel_error, sMMD
@@ -39,18 +39,56 @@ eks = kernel_error(t1, t2)
 smmd = sMMD(t1, t2)
 ```
 
-## Installation
-
-```
-```
-
 ## To reproduce our results
 
-### Downloading the pretrained models
+In this repository is all of the experimental code required to run the experiments in the corresponding paper.
+Included are also the evaluation notebooks for plotting.
+We first give a brief overview of the files.
+
+### Overview
+
+We performed experiments of three different task types (image, audio, and language generation).
+We used an existing code whenever possible, but this also means that some dependency requirements are older than others.
+Consequently, we include three distinct requirement files for each task type.
+It is not meant to run all experiments in one go, but rather this repository should be seen as a collection of three distinct experiment structures.
+We now refer in each task type the associated files, the respective requirements file, and the original code base when applicable.
+We use `conda` as environment manager.
+
+All metrics/measures are defined in `metrics.py`.
+In `unit_tests.ipynb`, we performed some unit tests for these functions.
+
+### Image Generation
+
+The dependencies for image generation are found in `environment_image.yml`.
+All image experiments can be run and plotted in `infimnist_cond_ddpm.ipynb`.
+There, it is also described of how to setup infimnist.
+Alternatively, one can also accelerate the computation via slurm by running `multi_ddpm.sh`, which calls `slurm_train_ddpm.sh` and `slurm_generate_samples.sh` parallelized.
+Training the diffusion models is defined in `mnist__conditional_diffusion.py`.
+Generating the samples for the stored model checkpoints is defined in `generate_samples.py`.
+
+### Audio Generation
+
+The dependencies for audio generation are found in `environment_audio.yml`.
+The audio experiments are an extension of [this](https://github.com/coqui-ai/TTS/blob/dev/notebooks/Tutorial_2_train_your_first_TTS_model.ipynb) tutorial.
+First, follow the tutorial instructions to setup LJSpeech.
+Then, run `slurm_single_glow-tts.sh` as bash command (even though it looks like a slurm script, but it crashed for us via slurm).
+It executes `glow-tts.py` for different seeds, in which the training procedure is defined.
+After, run `multi_wav_generate.sh` which calls `wav_generate.sh` to generate the wav outputs for the model checkpoints.
+The generations are defined in `glow-tts_generate.py`.
+Plotting the results is done in `glow-tts.ipynb`.
 
 
-### Running our experiments
+### Natural Language Generation
 
+The dependencies for natural language generation are found in `environment_nlg.yml`.
+We mostly adopted the code of `https://github.com/lorenzkuhn/semantic_uncertainty`.
+We had to do some minor adjustments due to breaking bugs, like file paths and evaluations (c.f. issues in the linked repository).
+Please follow their instructions to setup the datasets.
+We use `run_pipeline.sh` to run all experiments (you have to setup your own wandb account and also change the finished run ids).
+We added only one new file to the pipeline, namely `get_kernel_entropy.py`, which computes the kernel entropy.
+We also made a copy and extended their evaluation script in `analyze_results_kent.py` to combine all evaluations.
+For the KDE plot in the appendix, run `nlg_plot_ent_scatters.py` like in `run_pipeline.sh`.
+The rest of the plots can be created in the notebook `plot_nlg.ipynb`.
 
 ## Reference
 If you found this work or code useful, please cite:
