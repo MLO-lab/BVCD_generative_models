@@ -97,14 +97,15 @@ If you found this work or code useful, please cite:
 @inproceedings{gruberbias,
   title={A Bias-Variance-Covariance Decomposition of Kernel Scores for Generative Models},
   author={Gruber, Sebastian Gregor and Buettner, Florian},
-  booktitle={Forty-first International Conference on Machine Learning}
+  booktitle={Forty-first International Conference on Machine Learning},
+  year={2024},
 }
 ```
 and possibly also the more foundational work
 ```
 @inproceedings{gruber2023uncertainty,
   title={Uncertainty Estimates of Predictions via a General Bias-Variance Decomposition},
-  author={Gruber, Sebastian and Buettner, Florian},
+  author={Gruber, Sebastian Gregor and Buettner, Florian},
   booktitle={International Conference on Artificial Intelligence and Statistics},
   pages={11331--11354},
   year={2023},
