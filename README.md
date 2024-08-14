@@ -10,7 +10,7 @@ Specificaly, we discover that kernel entropy outperforms other uncertainty basel
 **Upper image:** Kernel entropy is used to compute the similarity of text embeddings.
 **Lower image:** It outperforms other baselines for uncertainty estimation (c.f. paper for more results).
 
-![Sketch of how kernel entropy is used for large language models](https://github.com/MLO-lab/BVCD_generative_models/blob/main/Screenshot%202024-07-15%20at%2017.34.49.png?raw=true)
+<img src="https://github.com/MLO-lab/BVCD_generative_models/blob/main/Screenshot%202024-07-15%20at%2017.34.49.png?raw=true" alt="Sketch of how kernel entropy is used for large language models" width="50%"/>
 
 ## To use it in your project
 
@@ -23,6 +23,7 @@ import numpy as np
 
 from metrics import dist_cov, dist_var, kernel_noise, dist_corr, kernel_error, sMMD
 
+# shape according to (model_index, sample_index, feature_index)
 t1 = np.arange(0, 12).reshape(4, 3, 1)
 t2 = np.arange(12, 24).reshape(4, 3, 1)
 # distributional variance
@@ -34,9 +35,9 @@ corr_k = dist_corr(t1, t2)
 # kernel entropy
 ke = kernel_noise(t1[0])
 # expected kernel score
-eks = kernel_error(t1, t2)
+eks = kernel_error(t1[0], t2[0])
 # squared MMD
-smmd = sMMD(t1, t2)
+smmd = sMMD(t1[0], t2[0])
 ```
 
 ## To reproduce our results
